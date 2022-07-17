@@ -1,15 +1,15 @@
-import { Fetcher, MostRecentCache } from '../src/most-recent-cache';
+import { DataSource, MostRecentlyUsedCache } from '../src/most-recently-used-cache';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
 describe('most recent cache', function () {
-  let fetcherSpy: SpyObj<Fetcher<string>>;
-  let mostRecentCache: MostRecentCache<string>;
+  let fetcherSpy: SpyObj<DataSource<string>>;
+  let mostRecentCache: MostRecentlyUsedCache<string>;
 
   beforeEach(() => {
-    fetcherSpy = createSpyObj<Fetcher<string>>('Fetcher', ['get']);
+    fetcherSpy = createSpyObj<DataSource<string>>('Fetcher', ['get']);
     fetcherSpy.get.and.callFake(id => `value of ${id}`);
-    mostRecentCache = new MostRecentCache<string>(fetcherSpy, 3);
+    mostRecentCache = new MostRecentlyUsedCache<string>(fetcherSpy, 3);
   });
 
   it('should return correct vales', function () {
